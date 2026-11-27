@@ -10,3 +10,4 @@ __pycache__/
 .ruff_cache/
 data and eval/
 eval/eval_checkpoint_progress.json
+data/ingested/

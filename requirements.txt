@@ -5,6 +5,7 @@ rank-bm25
 numpy
 fastapi
 uvicorn
+python-multipart
 pydantic
 python-dotenv
 pytest

@@ -206,3 +206,38 @@ class PolicyAnswerResult(BaseModel):
     retrieval: RetrievalResult | None = None
     latency_ms: float = 0.0
     api_calls: int = 0
+
+
+class BacklogEntry(BaseModel):
+    """De-identified FAQ backlog topic enforced with date-only timestamp and k-anonymity."""
+
+    topic_key: str
+    scrubbed_question: str
+    asked_date: str
+    hit_count: int
+    sample_status: str
+
+
+class ChatRequest(BaseModel):
+    """Incoming multi-turn policy chat request payload."""
+
+    query: str = Field(min_length=1, max_length=2000)
+    history: list[dict[str, str]] = Field(default_factory=list)
+
+
+class ChatResponse(PolicyAnswerResult):
+    """API chat response extending PolicyAnswerResult with backlog recording flag."""
+
+    backlog_recorded: bool = False
+
+
+class IngestResponse(BaseModel):
+    """API response summarizing hot-ingested document chunks and updated index size."""
+
+    status: str
+    doc_id: str
+    doc_title: str
+    doc_nature: DocNature
+    ui_source_label: str
+    chunks_added: int
+    total_chunks: int

@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trợ lý AI Crema — Chính sách Nhân sự &amp; An toàn</title>
+  <style>
+    :root {
+      --bg: #f6f4ef;
+      --surface: #ffffff;
+      --surface-alt: #faf9f6;
+      --ink: #1e242b;
+      --muted: #5f6873;
+      --border: #e2ddd2;
+      --accent: #7a4b2a;
+      --accent-soft: #f3ebe4;
+      --law-bg: #e7eff8;
+      --law-fg: #1d4e89;
+      --decree-bg: #eaf4ec;
+      --decree-fg: #1e6b3a;
+      --ref-bg: #eef0f6;
+      --ref-fg: #3b426b;
+      --sim-bg: #fdf1e6;
+      --sim-fg: #9c4a08;
+      --warn-bg: #fff6db;
+      --warn-border: #d99b16;
+      --warn-fg: #6b4b00;
+      --danger-bg: #fbeaea;
+      --danger-fg: #8c2323;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.5;
+    }
+
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .brand h1 {
+      margin: 0;
+      font-size: 1.15rem;
+      color: var(--accent);
+      letter-spacing: -0.01em;
+    }
+    .brand p {
+      margin: 2px 0 0;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .health-pill {
+      font-size: 0.82rem;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    main {
+      max-width: 1280px;
+      margin: 18px auto;
+      padding: 0 18px 28px;
+      display: grid;
+      grid-template-columns: 1.65fr 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+    @media (max-width: 960px) {
+      main { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .card h2 {
+      margin: 0 0 10px;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .prompts-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+    .chip {
+      border: 1px solid var(--border);
+      background: var(--surface-alt);
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .chip:hover { background: var(--accent-soft); border-color: var(--accent); }
+
+    .chat-log {
+      min-height: 380px;
+      max-height: 540px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 10px;
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 12px;
+    }
+    .msg {
+      padding: 12px 14px;
+      border-radius: 10px;
+      max-width: 95%;
+    }
+    .msg.user {
+      align-self: flex-end;
+      background: var(--accent);
+      color: #fff;
+    }
+    .msg.bot {
+      align-self: flex-start;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      width: 100%;
+    }
+
+    .status-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      font-size: 0.76rem;
+      color: var(--muted);
+    }
+    .status-badge {
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: var(--decree-bg);
+      color: var(--decree-fg);
+    }
+    .status-badge.warn { background: var(--warn-bg); color: var(--warn-fg); }
+    .status-badge.danger { background: var(--danger-bg); color: var(--danger-fg); }
+
+    .partial-expiry-banner {
+      margin-top: 8px;
+      padding: 8px 10px;
+      border-left: 4px solid var(--warn-border);
+      background: var(--warn-bg);
+      color: var(--warn-fg);
+      border-radius: 6px;
+      font-size: 0.83rem;
+    }
+
+    .citations {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .cite-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 9px 11px;
+      background: #fcfbf8;
+      font-size: 0.84rem;
+    }
+    .cite-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+    .nature-badge {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 5px;
+    }
+    .nature-consolidated_law { background: var(--law-bg); color: var(--law-fg); }
+    .nature-legal_decree { background: var(--decree-bg); color: var(--decree-fg); }
+    .nature-enterprise_reference { background: var(--ref-bg); color: var(--ref-fg); }
+    .nature-synthetic_policy { background: var(--sim-bg); color: var(--sim-fg); }
+    .cite-meta { font-weight: 600; color: var(--ink); }
+    .cite-sub { font-size: 0.78rem; color: var(--muted); margin-bottom: 4px; }
+    .cite-quote {
+      margin: 0;
+      padding-left: 8px;
+      border-left: 3px solid var(--border);
+      color: #363e47;
+      font-style: italic;
+    }
+
+    .chat-form {
+      display: flex;
+      gap: 8px;
+    }
+    .chat-form input {
+      flex: 1;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.94rem;
+    }
+
+    button.btn {
+      border: 0;
+      border-radius: 8px;
+      padding: 9px 14px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: var(--accent);
+      color: #fff;
+    }
+    button.btn.secondary {
+      background: var(--surface-alt);
+      color: var(--ink);
+      border: 1px solid var(--border);
+    }
+    button.btn:disabled { opacity: 0.55; cursor: wait; }
+
+    .stack { display: flex; flex-direction: column; gap: 16px; }
+    label { display: block; font-size: 0.82rem; font-weight: 600; margin-bottom: 4px; color: var(--muted); }
+    input[type="password"], input[type="text"], input[type="file"] {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.88rem;
+      background: #fff;
+    }
+    .inline-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .panel-msg {
+      margin-top: 8px;
+      font-size: 0.83rem;
+      padding: 8px 10px;
+      border-radius: 8px;
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      display: none;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 0.82rem;
+    }
+    th, td {
+      border-bottom: 1px solid var(--border);
+      padding: 7px 6px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th { color: var(--muted); font-weight: 600; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <h1>Trợ lý AI Crema — Chính sách Nhân sự &amp; An toàn (iLD Coffee)</h1>
+      <p>Hỏi đáp trích dẫn xác thực từ văn bản gốc &bull; Không bịa số liệu &bull; Bảo mật k-anonymity</p>
+    </div>
+    <div class="health-pill" id="healthStatus">Đang kiểm tra hệ thống...</div>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>
+        <span>Hỏi đáp Chính sách &amp; Quy chế</span>
+        <button type="button" class="btn secondary" id="clearChatBtn">Cuộc trò chuyện mới</button>
+      </h2>
+
+      <div class="prompts-row">
+        <button type="button" class="chip" data-q="Người lao động bị tai nạn lao động suy giảm 81% khả năng lao động được bồi thường ít nhất mấy tháng tiền lương?">Bồi thường TNLĐ 81%</button>
+        <button type="button" class="chip" data-q="lam them gio vao ngay nghi le tet duoc huong it nhat bao nhieu phan tram luong">Không dấu: OT ngày lễ</button>
+        <button type="button" class="chip" data-q="Theo Điều 4 Nghị định 145/2020/NĐ-CP, doanh nghiệp phải báo cáo thay đổi lao động định kỳ trước ngày nào?">Cảnh báo Điều 4 NĐ 145</button>
+        <button type="button" class="chip" data-q="Bảng lương tháng này của tôi bị thiếu tiền làm thêm giờ, kiểm tra giúp tôi được bao nhiêu?">Near-miss: Lương cá nhân</button>
+        <button type="button" class="chip" data-q="Ngưỡng nồng độ khí Oxy (O2) an toàn khi làm việc trong không gian kín đối với nhà thầu là bao nhiêu?">Sau nạp nóng: Khí O2 nhà thầu</button>
+      </div>
+
+      <div class="chat-log" id="chatLog">
+        <div class="msg bot">
+          Xin chào kỹ sư và nhân sự iLD Coffee. Hãy đặt câu hỏi về chế độ bảo hiểm tai nạn lao động, bồi thường/trợ cấp, thời giờ làm việc hoặc tiêu chuẩn an toàn HSE (có dấu, không dấu hoặc hỏi nối tiếp nhiều lượt).
+        </div>
+      </div>
+
+      <form class="chat-form" id="chatForm">
+        <input id="chatInput" type="text" placeholder="Nhập câu hỏi chính sách (có dấu hoặc không dấu)..." required />
+        <button type="submit" class="btn" id="sendBtn">Gửi</button>
+      </form>
+    </section>
+
+    <aside class="stack">
+      <section class="card">
+        <h2>Quản trị &amp; Phân quyền RBAC</h2>
+        <label for="apiKeyInput">Khóa API Nhân sự / Quản trị (X-API-Key)</label>
+        <input id="apiKeyInput" type="password" placeholder="Nhập HR_API_KEY hoặc ADMIN_API_KEY" />
+        <p style="margin:6px 0 0;font-size:0.78rem;color:var(--muted);">
+          Chỉ vai trò Nhân sự / Quản trị có khóa hợp lệ mới nạp tài liệu mới hoặc xem FAQ Backlog.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>Nạp nóng Tài liệu Chính sách</h2>
+        <label for="ingestFile">Chọn tệp (.pdf, .docx, .md, .txt)</label>
+        <input id="ingestFile" type="file" accept=".pdf,.docx,.md,.txt" />
+        <div class="inline-actions">
+          <button type="button" class="btn" id="uploadIngestBtn">Nạp tệp đã chọn</button>
+          <button type="button" class="btn secondary" id="presetIngestBtn">Nạp nhanh extra_05 Sổ tay Nhà thầu</button>
+        </div>
+        <div class="panel-msg" id="ingestMsg"></div>
+      </section>
+
+      <section class="card">
+        <h2>
+          <span>FAQ Backlog (k-anonymity &ge; 3)</span>
+          <button type="button" class="btn secondary" id="loadBacklogBtn">Tải Backlog</button>
+        </h2>
+        <p style="margin:0;font-size:0.79rem;color:var(--muted);">
+          Chỉ lưu ngày (YYYY-MM-DD), đã xóa SĐT/email/mã nhân sự/tên người/bộ phận và chỉ hiện chủ đề có ít nhất 3 lượt hỏi.
+        </p>
+        <div class="panel-msg" id="backlogMsg"></div>
+        <table>
+          <thead>
+            <tr>
+              <th>Chủ đề đã khử định danh</th>
+              <th>Ngày</th>
+              <th>Lượt</th>
+            </tr>
+          </thead>
+          <tbody id="backlogBody">
+            <tr><td colspan="3" style="color:var(--muted);">Chưa tải dữ liệu.</td></tr>
+          </tbody>
+        </table>
+      </section>
+    </aside>
+  </main>
+
+  <script>
+    const chatLog = document.getElementById("chatLog");
+    const chatForm = document.getElementById("chatForm");
+    const chatInput = document.getElementById("chatInput");
+    const sendBtn = document.getElementById("sendBtn");
+    const clearChatBtn = document.getElementById("clearChatBtn");
+    const apiKeyInput = document.getElementById("apiKeyInput");
+    const ingestFile = document.getElementById("ingestFile");
+    const uploadIngestBtn = document.getElementById("uploadIngestBtn");
+    const presetIngestBtn = document.getElementById("presetIngestBtn");
+    const ingestMsg = document.getElementById("ingestMsg");
+    const loadBacklogBtn = document.getElementById("loadBacklogBtn");
+    const backlogMsg = document.getElementById("backlogMsg");
+    const backlogBody = document.getElementById("backlogBody");
+    const healthStatus = document.getElementById("healthStatus");
+
+    let conversationHistory = [];
+
+    function escapeHtml(text) {
+      const div = document.createElement("div");
+      div.textContent = text == null ? "" : String(text);
+      return div.innerHTML;
+    }
+
+    async function refreshHealth() {
+      try {
+        const res = await fetch("/health");
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        const data = await res.json();
+        healthStatus.textContent =
+          `Sẵn sàng • ${data.total_documents} tài liệu (${data.total_chunks} đoạn) • Ngưỡng cos ≥ ${data.tau_cosine_reject}`;
+      } catch (err) {
+        healthStatus.textContent = "Lỗi kết nối máy chủ";
+      }
+    }
+
+    function appendUserMessage(text) {
+      const div = document.createElement("div");
+      div.className = "msg user";
+      div.textContent = text;
+      chatLog.appendChild(div);
+      chatLog.scrollTop = chatLog.scrollHeight;
+    }
+
+    function appendBotResponse(data) {
+      const div = document.createElement("div");
+      div.className = "msg bot";
+
+      const badgeClass =
+        data.status === "ANSWERED"
+          ? "status-badge"
+          : data.status === "REFUSED_INJECTION"
+            ? "status-badge danger"
+            : "status-badge warn";
+
+      const rewrittenNote =
+        data.retrieval && data.retrieval.rewrite_result && data.retrieval.rewrite_result.was_rewritten
+          ? `<span>• Chuẩn hóa truy vấn: “${escapeHtml(data.retrieval.rewrite_result.rewritten_query)}”</span>`
+          : "";
+
+      const backlogNote = data.backlog_recorded
+        ? "<span>• Đã ghi nhận ẩn danh vào backlog</span>"
+        : "";
+
+      let html = `
+        <div class="status-row">
+          <span class="${badgeClass}">${escapeHtml(data.status)}</span>
+          <span>${Math.round(data.latency_ms || 0)} ms &bull; ${data.api_calls || 0} API calls</span>
+          ${rewrittenNote}
+          ${backlogNote}
+        </div>
+        <div style="white-space: pre-wrap;">${escapeHtml(data.answer)}</div>
+      `;
+
+      if (data.has_partial_expiry_warning) {
+        html += `
+          <div class="partial-expiry-banner">
+            <strong>Cảnh báo hiệu lực một phần:</strong> Nội dung thuộc Điều 4 hoặc Điều 31 Nghị định 145/2020/NĐ-CP có thủ tục báo cáo hành chính đã chịu tác động sửa đổi một phần; cần đối chiếu thêm quy định hiện hành.
+          </div>
+        `;
+      }
+
+      if (Array.isArray(data.citations) && data.citations.length > 0) {
+        html += '<div class="citations">';
+        for (const c of data.citations) {
+          const pageText = c.page_number !== null && c.page_number !== undefined
+            ? ` • Trang ${escapeHtml(c.page_number)}`
+            : "";
+          const effText = c.effective_date ? `Hiệu lực: ${escapeHtml(c.effective_date)}` : "Tài liệu tham chiếu";
+          html += `
+            <div class="cite-card">
+              <div class="cite-head">
+                <span class="nature-badge nature-${escapeHtml(c.doc_nature)}">${escapeHtml(c.ui_source_label)}</span>
+                <span class="cite-meta">${escapeHtml(c.doc_title)} &mdash; ${escapeHtml(c.section_code)}${pageText}</span>
+              </div>
+              <div class="cite-sub">${effText}</div>
+              <blockquote class="cite-quote">“${escapeHtml(c.verbatim_quote)}”</blockquote>
+            </div>
+          `;
+        }
+        html += "</div>";
+      }
+
+      div.innerHTML = html;
+      chatLog.appendChild(div);
+      chatLog.scrollTop = chatLog.scrollHeight;
+    }
+
+    async function submitQuery(queryText) {
+      const q = queryText.trim();
+      if (!q) return;
+      appendUserMessage(q);
+      chatInput.value = "";
+      sendBtn.disabled = true;
+      try {
+        const res = await fetch("/v1/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ query: q, history: conversationHistory }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || "Lỗi gọi API");
+        appendBotResponse(data);
+        conversationHistory.push({ role: "user", content: q });
+        conversationHistory.push({ role: "assistant", content: data.answer });
+        if (conversationHistory.length > 8) {
+          conversationHistory = conversationHistory.slice(-8);
+        }
+      } catch (err) {
+        appendBotResponse({
+          status: "ERROR",
+          answer: "Không thể xử lý yêu cầu: " + err.message,
+          citations: [],
+        });
+      } finally {
+        sendBtn.disabled = false;
+      }
+    }
+
+    chatForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      submitQuery(chatInput.value);
+    });
+
+    clearChatBtn.addEventListener("click", () => {
+      conversationHistory = [];
+      chatLog.innerHTML = "";
+    });
+
+    document.querySelectorAll(".chip[data-q]").forEach((btn) => {
+      btn.addEventListener("click", () => submitQuery(btn.getAttribute("data-q")));
+    });
+
+    function showPanelMessage(el, msg) {
+      el.style.display = "block";
+      el.textContent = msg;
+    }
+
+    async function doIngest(mode) {
+      const key = apiKeyInput.value.trim();
+      const headers = key ? { "X-API-Key": key } : {};
+      let url = "/v1/ingest";
+      const opts = { method: "POST", headers };
+
+      if (mode === "preset") {
+        url = "/v1/ingest?preset=extra_05";
+      } else {
+        const file = ingestFile.files[0];
+        if (!file) {
+          showPanelMessage(ingestMsg, "Vui lòng chọn một tệp trước khi nạp.");
+          return;
+        }
+        const formData = new FormData();
+        formData.append("file", file);
+        opts.body = formData;
+      }
+
+      uploadIngestBtn.disabled = true;
+      presetIngestBtn.disabled = true;
+      try {
+        const res = await fetch(url, opts);
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || `HTTP ${res.status}`);
+        showPanelMessage(
+          ingestMsg,
+          `Thành công: ${data.ui_source_label} ${data.doc_title} (+${data.chunks_added} đoạn, tổng ${data.total_chunks} đoạn).`
+        );
+        await refreshHealth();
+      } catch (err) {
+        showPanelMessage(ingestMsg, `Từ chối/Lỗi: ${err.message}`);
+      } finally {
+        uploadIngestBtn.disabled = false;
+        presetIngestBtn.disabled = false;
+      }
+    }
+
+    uploadIngestBtn.addEventListener("click", () => doIngest("file"));
+    presetIngestBtn.addEventListener("click", () => doIngest("preset"));
+
+    loadBacklogBtn.addEventListener("click", async () => {
+      const key = apiKeyInput.value.trim();
+      const headers = key ? { "X-API-Key": key } : {};
+      loadBacklogBtn.disabled = true;
+      try {
+        const res = await fetch("/v1/backlog", { headers });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || `HTTP ${res.status}`);
+        showPanelMessage(
+          backlogMsg,
+          `Hiển thị ${data.count} chủ đề đạt ngưỡng ẩn danh >= ${data.k_anonymity_min_hits} lượt hỏi.`
+        );
+        if (!data.items || data.items.length === 0) {
+          backlogBody.innerHTML =
+            '<tr><td colspan="3" style="color:var(--muted);">Chưa có chủ đề nào đạt >= 3 lượt hỏi.</td></tr>';
+        } else {
+          backlogBody.innerHTML = data.items
+            .map(
+              (row) => `
+              <tr>
+                <td>${escapeHtml(row.scrubbed_question)}</td>
+                <td>${escapeHtml(row.asked_date)}</td>
+                <td><strong>${escapeHtml(row.hit_count)}</strong></td>
+              </tr>`
+            )
+            .join("");
+        }
+      } catch (err) {
+        showPanelMessage(backlogMsg, `Từ chối/Lỗi: ${err.message}`);
+      } finally {
+        loadBacklogBtn.disabled = false;
+      }
+    });
+
+    refreshHealth();
+  </script>
+</body>
+</html>
