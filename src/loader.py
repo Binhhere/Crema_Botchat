@@ -217,9 +217,10 @@ def _extract_vbhn_page_dict(
         if block.get("type") != 0:
             continue
         for line in block.get("lines", []):
-            spans = [s for s in line.get("spans", []) if s.get("text", "").strip()]
-            if not spans:
+            raw_spans = line.get("spans", [])
+            if not any(str(s.get("text", "")).strip() for s in raw_spans):
                 continue
+            spans = [s for s in raw_spans if str(s.get("text", "")) != ""]
             all_lines.append((float(line["bbox"][1]), spans))
 
     all_lines.sort(key=lambda item: item[0])
@@ -237,7 +238,9 @@ def _extract_vbhn_page_dict(
         if y0 < 65.0 and raw_joined.isdigit():
             continue
 
-        max_size = max(float(s["size"]) for s in spans)
+        max_size = max(
+            float(s["size"]) for s in spans if str(s.get("text", "")).strip()
+        )
 
         # Bottom footnote zone in VBHN PDFs uses <= 10.5pt font
         if max_size <= 10.5:
@@ -264,10 +267,12 @@ def _extract_vbhn_page_dict(
                 fn_num = int(stripped)
                 if 1 <= fn_num <= 50:
                     fn_ids.append(fn_num)
+                parts.append(" ")
                 continue
             parts.append(stext)
 
         clean_line = re.sub(r"\s+", " ", "".join(parts)).strip()
+        clean_line = re.sub(r"\s+([,.;:)!?])", r"\1", clean_line)
         if clean_line:
             body_lines.append((clean_line, fn_ids))
 

@@ -95,6 +95,10 @@ def test_file_02_vbhn_06_font_fix_footnotes_and_appendices() -> None:
 
     d5_chunks = [ch for ch in chunks if ch.section_code == "Điều 5"]
     assert any(ch.clause_effective_date == "2026-01-01" for ch in d5_chunks)
+    d5_e_chunks = [ch for ch in d5_chunks if "Đối với hạ sĩ quan, binh sĩ quân đội nhân dân" in ch.text]
+    assert len(d5_e_chunks) == 1
+    assert "cơ yếu đang" in d5_e_chunks[0].text
+    assert d5_e_chunks[0].clause_effective_date == "2026-01-01"
     d3_chunks = [ch for ch in chunks if ch.section_code == "Điều 3"]
     assert d3_chunks and all(ch.clause_effective_date == "2022-03-01" for ch in d3_chunks)
 

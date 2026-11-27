@@ -10,7 +10,7 @@ _CHAPTER_RE = re.compile(r"^Chương\s+[IVXLCDM0-9]+\b", re.IGNORECASE)
 _SEC_MUC_RE = re.compile(r"^Mục\s+\d+\.", re.IGNORECASE)
 _ARTICLE_RE = re.compile(r"^Điều\s+(\d+)(?:\s*[–-]\s*(?:Điều\s*)?(\d+))?[\.\:\s]")
 _APPENDIX_RE = re.compile(r"^PHỤ\s+LỤC\s+([IVXLCDM]+)\b")
-_CLAUSE_SPLIT_RE = re.compile(r"^\d+\.\s+")
+_CLAUSE_SPLIT_RE = re.compile(r"^(?:\d+\.|[a-zđ]\))\s+")
 
 _ROMAN_H1_RE = re.compile(r"^[IVXLCDM]+\.\s+\S")
 _DECIMAL_H2_RE = re.compile(r"^(\d{1,2}\.\d{1,2})\.?(?:\s+|$)")
@@ -106,6 +106,23 @@ def _split_blocks_by_size(
             and (not clause_boundary or is_split_point or cur_words >= max_words // 2)
         )
         if should_flush:
+            if clause_boundary and not is_split_point:
+                split_idx: int | None = None
+                for idx in range(len(cur_blocks) - 1, 0, -1):
+                    if _CLAUSE_SPLIT_RE.match(cur_blocks[idx].text.strip()):
+                        prefix_words = sum(_word_count(b.text) for b in cur_blocks[:idx])
+                        if prefix_words >= max_words // 3:
+                            split_idx = idx
+                            break
+                if split_idx is not None:
+                    flushed = cur_blocks[:split_idx]
+                    groups.append((flushed, "\n".join(b.text for b in flushed)))
+                    cur_blocks = cur_blocks[split_idx:]
+                    cur_words = sum(_word_count(b.text) for b in cur_blocks)
+                    cur_blocks.append(blk)
+                    cur_words += blk_words
+                    continue
+
             joined = "\n".join(b.text for b in cur_blocks)
             groups.append((cur_blocks, joined))
             cur_blocks = []
