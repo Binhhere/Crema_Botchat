@@ -1,0 +1,11 @@
+.env
+.venv/
+data/cache/
+*.db
+*.sqlite
+*.sqlite3
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+data and eval/

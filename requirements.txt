@@ -1,0 +1,12 @@
+google-genai
+pymupdf
+python-docx
+rank-bm25
+numpy
+fastapi
+uvicorn
+pydantic
+python-dotenv
+pytest
+httpx
+ruff
