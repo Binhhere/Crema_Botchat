@@ -23,6 +23,16 @@ _WORD_TOKEN_RE = re.compile(r"\w+(?:[.,/-]\w+)*", flags=re.UNICODE)
 _NUMBER_TOKEN_RE = re.compile(r"(?<!\w)\d+(?:[.,]\d+)*(?!\w)")
 _THOUSAND_GROUP_RE = re.compile(r"^[1-9]\d{0,2}(?:[.,]\d{3})+$")
 _MULTI_DOT_SECTION_RE = re.compile(r"^\d+(?:\.\d+){2,}$")
+_SCALED_UNIT_RE = re.compile(
+    r"(?<!\w)(\d+(?:[.,]\d+)?)\s*(nghìn|ngàn|triệu|tỷ)\b",
+    flags=re.IGNORECASE,
+)
+_UNIT_MULTIPLIERS: dict[str, int] = {
+    "nghìn": 1_000,
+    "ngàn": 1_000,
+    "triệu": 1_000_000,
+    "tỷ": 1_000_000_000,
+}
 
 
 def _strip_quote_affixes(text: str) -> str:
@@ -99,11 +109,27 @@ def _canonicalize_numeric_token(tok: str) -> set[str]:
     return {str(int(tok))}
 
 
-def extract_canonical_numbers(text: str) -> set[str]:
-    """Extract canonical numeric representations from text for grounding comparison."""
+def extract_canonical_numbers(text: str, include_unscaled: bool = False) -> set[str]:
+    """Extract canonical numeric representations (incl. Vietnamese unit scales) for grounding."""
     nfc = unicodedata.normalize("NFC", text)
     results: set[str] = set()
-    for tok in _NUMBER_TOKEN_RE.findall(nfc):
+
+    def _replace_scaled(match: re.Match[str]) -> str:
+        raw_num = match.group(1)
+        unit = match.group(2).lower()
+        mult = _UNIT_MULTIPLIERS[unit]
+        if _THOUSAND_GROUP_RE.match(raw_num):
+            val = float(raw_num.replace(".", "").replace(",", ""))
+        else:
+            val = float(raw_num.replace(",", "."))
+        scaled_int = round(val * mult)
+        results.add(str(scaled_int))
+        if include_unscaled:
+            results.update(_canonicalize_numeric_token(raw_num))
+        return " "
+
+    remainder = _SCALED_UNIT_RE.sub(_replace_scaled, nfc)
+    for tok in _NUMBER_TOKEN_RE.findall(remainder):
         results.update(_canonicalize_numeric_token(tok))
     return results
 
@@ -220,10 +246,10 @@ def verify_llm_output(
             verified_citations.append(build_verified_citation(chunk, stripped_quote))
 
     # Condition 3: Numerical Grounding Check against cited chunks + original question
-    answer_nums = extract_canonical_numbers(llm_output.answer_friendly)
+    answer_nums = extract_canonical_numbers(llm_output.answer_friendly, include_unscaled=False)
     if answer_nums:
         allowed_sources = [original_query, *(_chunk_grounding_text(ch) for ch in cited_chunks)]
-        allowed_nums = extract_canonical_numbers("\n".join(allowed_sources))
+        allowed_nums = extract_canonical_numbers("\n".join(allowed_sources), include_unscaled=True)
         ungrounded = sorted(answer_nums - allowed_nums)
         if ungrounded:
             return (

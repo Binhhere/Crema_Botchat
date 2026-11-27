@@ -34,9 +34,9 @@ FALLBACK_FLASH_MODELS: tuple[str, ...] = (
     "gemini-3.1-flash-lite",
 )
 
-# Calibrated retrieval gates (to be tuned in Stage 4)
-TAU_COSINE_REJECT = float(os.getenv("CREMA_TAU_COSINE_REJECT", "0.65"))
-TAU_COSINE_FLOOR = float(os.getenv("CREMA_TAU_COSINE_FLOOR", "0.58"))
+# Calibrated retrieval gates (calibrated on 36-item Calibration Set in Stage 4)
+TAU_COSINE_REJECT = float(os.getenv("CREMA_TAU_COSINE_REJECT", "0.69"))
+TAU_COSINE_FLOOR = float(os.getenv("CREMA_TAU_COSINE_FLOOR", "0.62"))
 
 # Auth & storage settings (Stage 5)
 DB_BACKEND = os.getenv("DB_BACKEND", "sqlite")

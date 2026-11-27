@@ -1,0 +1,326 @@
+[
+  {
+    "id": "CAL-01",
+    "query": "Sở Lao động - Thương binh và Xã hội thẩm định hồ sơ đề nghị hỗ trợ chuyển đổi nghề nghiệp cho người bị tai nạn lao động trong thời hạn bao nhiêu ngày làm việc?",
+    "is_unaccented": false,
+    "expected_action": "ANSWERED",
+    "gold_doc_id": "01_nd88_2020_hop_nhat_04_vbhn_bnv",
+    "gold_clause": "Điều 15",
+    "must_contain": ["5"]
+  },
+  {
+    "id": "CAL-02",
+    "query": "muc ho tro kinh phi chua benh nghe nghiep toi da bang bao nhieu phan tram va toi da bao nhieu trieu dong",
+    "is_unaccented": true,
+    "expected_action": "ANSWERED",
+    "gold_doc_id": "01_nd88_2020_hop_nhat_04_vbhn_bnv",
+    "gold_clause": "Điều 21",
+    "must_contain": ["50%", "15"]
+  },
+  {
+    "id": "CAL-03",
+    "query": "Quỹ bảo hiểm tai nạn lao động, bệnh nghề nghiệp chi trả bao nhiêu phần trăm kinh phí điều tra lại các vụ tai nạn lao động?",
+    "is_unaccented": false,
+    "expected_action": "ANSWERED",
+    "gold_doc_id": "01_nd88_2020_hop_nhat_04_vbhn_bnv",
+    "gold_clause": "Điều 29",
+    "must_contain": ["100%"]
+  },
+  {
+    "id": "CAL-04",
+    "query": "hang nam truoc ngay nao so lao dong lap ke hoach kinh phi ho tro phong ngua chia se rui ro tai nan lao dong",
+    "is_unaccented": true,
+    "expected_action": "ANSWERED",
+    "gold_doc_id": "01_nd88_2020_hop_nhat_04_vbhn_bnv",
+    "gold_clause": "Điều 38",
+    "must_contain": ["1", "6"]
+  },
+  {
+    "id": "CAL-05",
+    "query": "Người lao động bị tai nạn lao động suy giảm khả năng lao động từ 5% đến 10% thì được công ty bồi thường ít nhất mấy tháng tiền lương?",
+    "is_unaccented": false,
+    "expected_action": "ANSWERED",
+    "gold_doc_id": "02_tt28_2021_hop_nhat_06_vbhn_bnv",
+    "gold_clause": "Điều 3",
+    "must_contain": ["1,5"]
+  },
+  {
+    "id": "CAL-06",
+    "query": "quyet dinh boi thuong tai nan lao dong phai gui so lao dong trong vong bao nhieu ngay ke tu ngay ban hanh",
+    "is_unaccented": true,
+    "expected_action": "ANSWERED",
+    "gold_doc_id": "02_tt28_2021_hop_nhat_06_vbhn_bnv",
+    "gold_clause": "Điều 6",
+    "must_contain": ["10"]
+  },
+  {
+    "id": "CAL-07",
+    "query": "Người đang hưởng trợ cấp tai nạn lao động hằng tháng khi ra nước ngoài để định cư được giải quyết trợ cấp một lần bằng mấy tháng mức trợ cấp đang hưởng?",
+    "is_unaccented": false,
+    "expected_action": "ANSWERED",
+    "gold_doc_id": "02_tt28_2021_hop_nhat_06_vbhn_bnv",
+    "gold_clause": "Điều 9",
+    "must_contain": ["3"]
+  },
+  {
+    "id": "CAL-08",
+    "query": "muc tien cap mua tay gia thao khop vai tai phu luc v thong tu 28 la bao nhieu dong",
+    "is_unaccented": true,
+    "expected_action": "ANSWERED",
+    "gold_doc_id": "02_tt28_2021_hop_nhat_06_vbhn_bnv",
+    "gold_clause": "Phụ lục V",
+    "must_contain": ["2.800.000"]
+  },
+  {
+    "id": "CAL-09",
+    "query": "Doanh nghiệp phải lập sổ quản lý lao động trong vòng bao nhiêu ngày kể từ ngày bắt đầu hoạt động theo Điều 3 Nghị định 145/2020/NĐ-CP?",
+    "is_unaccented": false,
+    "expected_action": "ANSWERED",
+    "gold_doc_id": "03_nd145_2020_dieu_kien_lao_dong",
+    "gold_clause": "Điều 3",
+    "must_contain": ["30"]
+  },
+  {
+    "id": "CAL-10",
+    "query": "doanh nghiep cho thue lai lao dong phai nop bo sung du 2 ty dong tien ky quy trong bao nhieu ngay",
+    "is_unaccented": true,
+    "expected_action": "ANSWERED",
+    "gold_doc_id": "03_nd145_2020_dieu_kien_lao_dong",
+    "gold_clause": "Điều 20",
+    "must_contain": ["30"]
+  },
+  {
+    "id": "CAL-11",
+    "query": "Theo Điều 56 Nghị định 145/2020/NĐ-CP, tiền lương làm việc vào ban đêm được cộng thêm bao nhiêu phần trăm so với giờ làm việc ban ngày?",
+    "is_unaccented": false,
+    "expected_action": "ANSWERED",
+    "gold_doc_id": "03_nd145_2020_dieu_kien_lao_dong",
+    "gold_clause": "Điều 56",
+    "must_contain": ["30%"]
+  },
+  {
+    "id": "CAL-12",
+    "query": "thoi hieu xu ly boi thuong thiet hai theo dieu 72 nghi dinh 145 la may thang",
+    "is_unaccented": true,
+    "expected_action": "ANSWERED",
+    "gold_doc_id": "03_nd145_2020_dieu_kien_lao_dong",
+    "gold_clause": "Điều 72",
+    "must_contain": ["6"]
+  },
+  {
+    "id": "CAL-13",
+    "query": "Theo mục 6.2.2 tiêu chuẩn của Nike, nhà cung cấp tạo ra hoặc lưu trữ từ bao nhiêu kg chất thải nguy hại trở lên mỗi tháng phải triển khai quy trình giảm thiểu rủi ro?",
+    "is_unaccented": false,
+    "expected_action": "ANSWERED",
+    "gold_doc_id": "04_nike_cls_2020_an_toan_lao_dong",
+    "gold_clause": "6.2.2",
+    "must_contain": ["100"]
+  },
+  {
+    "id": "CAL-14",
+    "query": "danh muc kiem ke hoa chat va bang chi dan an toan hoa chat sds phai duy tri bao nhieu nam sau khi ngung su dung",
+    "is_unaccented": true,
+    "expected_action": "ANSWERED",
+    "gold_doc_id": "04_nike_cls_2020_an_toan_lao_dong",
+    "gold_clause": "9.3",
+    "must_contain": ["30"]
+  },
+  {
+    "id": "CAL-15",
+    "query": "Theo Bộ Quy tắc Chuẩn mực Lãnh đạo của Nike, người lao động tại nhà cung cấp phải từ ít nhất bao nhiêu tuổi trở lên?",
+    "is_unaccented": false,
+    "expected_action": "ANSWERED",
+    "gold_doc_id": "04_nike_cls_2020_an_toan_lao_dong",
+    "gold_clause": "45.1",
+    "must_contain": ["16"]
+  },
+  {
+    "id": "CAL-16",
+    "query": "neu gio lam viec cua nguoi lao dong thay doi thi nha cung cap phai thong bao truoc it nhat bao nhieu gio",
+    "is_unaccented": true,
+    "expected_action": "ANSWERED",
+    "gold_doc_id": "04_nike_cls_2020_an_toan_lao_dong",
+    "gold_clause": "49.2.1",
+    "must_contain": ["24"]
+  },
+  {
+    "id": "CAL-17",
+    "query": "Chính sách thưởng cổ phiếu ưu đãi ESOP dành cho kỹ sư nhà máy có thâm niên 5 năm được quy định như thế nào?",
+    "is_unaccented": false,
+    "expected_action": "OUT_OF_SCOPE",
+    "gold_doc_id": null,
+    "gold_clause": null,
+    "must_contain": []
+  },
+  {
+    "id": "CAL-18",
+    "query": "Công ty có hỗ trợ gói vay mua nhà chung cư trả góp với lãi suất ưu đãi nội bộ không?",
+    "is_unaccented": false,
+    "expected_action": "OUT_OF_SCOPE",
+    "gold_doc_id": null,
+    "gold_clause": null,
+    "must_contain": []
+  },
+  {
+    "id": "CAL-19",
+    "query": "Mức phụ cấp thẻ tập gym và bơi lội hằng tháng cho nhân sự văn phòng là bao nhiêu tiền?",
+    "is_unaccented": false,
+    "expected_action": "OUT_OF_SCOPE",
+    "gold_doc_id": null,
+    "gold_clause": null,
+    "must_contain": []
+  },
+  {
+    "id": "CAL-20",
+    "query": "Nhân sự có con nhỏ học trường mầm non tư thục quốc tế được công ty trợ cấp học phí bao nhiêu phần trăm?",
+    "is_unaccented": false,
+    "expected_action": "OUT_OF_SCOPE",
+    "gold_doc_id": null,
+    "gold_clause": null,
+    "must_contain": []
+  },
+  {
+    "id": "CAL-21",
+    "query": "Công ty có quy định nào cho phép kỹ sư mang thú cưng như chó mèo vào khu vực văn phòng làm việc không?",
+    "is_unaccented": false,
+    "expected_action": "OUT_OF_SCOPE",
+    "gold_doc_id": null,
+    "gold_clause": null,
+    "must_contain": []
+  },
+  {
+    "id": "CAL-22",
+    "query": "Mức tiền thưởng giới thiệu ứng viên kỹ sư cấp cao thành công qua bộ phận tuyển dụng là bao nhiêu triệu?",
+    "is_unaccented": false,
+    "expected_action": "OUT_OF_SCOPE",
+    "gold_doc_id": null,
+    "gold_clause": null,
+    "must_contain": []
+  },
+  {
+    "id": "CAL-23",
+    "query": "Chế độ tài trợ học phí chương trình thạc sĩ quản trị kinh doanh MBA ở nước ngoài áp dụng điều kiện gì?",
+    "is_unaccented": false,
+    "expected_action": "OUT_OF_SCOPE",
+    "gold_doc_id": null,
+    "gold_clause": null,
+    "must_contain": []
+  },
+  {
+    "id": "CAL-24",
+    "query": "Định mức cấp phát laptop MacBook Pro cá nhân mới cho kỹ sư vận hành được áp dụng sau mấy tháng thử việc?",
+    "is_unaccented": false,
+    "expected_action": "OUT_OF_SCOPE",
+    "gold_doc_id": null,
+    "gold_clause": null,
+    "must_contain": []
+  },
+  {
+    "id": "CAL-25",
+    "query": "cong thuc pha ca phe muoi chuan vi quan ngon can nhung nguyen lieu nao",
+    "is_unaccented": true,
+    "expected_action": "OUT_OF_SCOPE",
+    "gold_doc_id": null,
+    "gold_clause": null,
+    "must_contain": []
+  },
+  {
+    "id": "CAL-26",
+    "query": "gia vang mieng sjc va vang nhan tron hom nay tang hay giam bao nhieu",
+    "is_unaccented": true,
+    "expected_action": "OUT_OF_SCOPE",
+    "gold_doc_id": null,
+    "gold_clause": null,
+    "must_contain": []
+  },
+  {
+    "id": "CAL-27",
+    "query": "lich thi dau giai bong da ngoai hang anh cuoi tuan nay co tran nao hay",
+    "is_unaccented": true,
+    "expected_action": "OUT_OF_SCOPE",
+    "gold_doc_id": null,
+    "gold_clause": null,
+    "must_contain": []
+  },
+  {
+    "id": "CAL-28",
+    "query": "huong dan cai dat docker va docker compose tren he dieu hanh ubuntu server",
+    "is_unaccented": true,
+    "expected_action": "OUT_OF_SCOPE",
+    "gold_doc_id": null,
+    "gold_clause": null,
+    "must_contain": []
+  },
+  {
+    "id": "CAL-29",
+    "query": "Thủ tục sang tên sổ đỏ quyền sử dụng đất ở tại phòng công chứng cần nộp những giấy tờ nào?",
+    "is_unaccented": false,
+    "expected_action": "OUT_OF_SCOPE",
+    "gold_doc_id": null,
+    "gold_clause": null,
+    "must_contain": []
+  },
+  {
+    "id": "CAL-30",
+    "query": "Chính sách ưu đãi thuế thu nhập doanh nghiệp đối với dự án sản xuất phần mềm tại khu công nghệ cao áp dụng thuế suất bao nhiêu?",
+    "is_unaccented": false,
+    "expected_action": "OUT_OF_SCOPE",
+    "gold_doc_id": null,
+    "gold_clause": null,
+    "must_contain": []
+  },
+  {
+    "id": "CAL-31",
+    "query": "Cách chăm sóc và bón phân cho hoa lan hồ điệp nở đúng dịp Tết Nguyên Đán như thế nào?",
+    "is_unaccented": false,
+    "expected_action": "OUT_OF_SCOPE",
+    "gold_doc_id": null,
+    "gold_clause": null,
+    "must_contain": []
+  },
+  {
+    "id": "CAL-32",
+    "query": "Chu kỳ thay nhớt máy và lọc gió định kỳ cho xe máy tay ga chạy đường trường là bao nhiêu kilômét?",
+    "is_unaccented": false,
+    "expected_action": "OUT_OF_SCOPE",
+    "gold_doc_id": null,
+    "gold_clause": null,
+    "must_contain": []
+  },
+  {
+    "id": "CAL-33",
+    "query": "chinh sach lam viec tu xa toan thoi gian o nuoc ngoai cho nhan su it cua cong ty la gi",
+    "is_unaccented": true,
+    "expected_action": "OUT_OF_SCOPE",
+    "gold_doc_id": null,
+    "gold_clause": null,
+    "must_contain": []
+  },
+  {
+    "id": "CAL-34",
+    "query": "diem chuan xet tuyen dai hoc nganh cong nghe thong tin nam nay khoang bao nhieu diem",
+    "is_unaccented": true,
+    "expected_action": "OUT_OF_SCOPE",
+    "gold_doc_id": null,
+    "gold_clause": null,
+    "must_contain": []
+  },
+  {
+    "id": "CAL-35",
+    "query": "quy dinh so kilogam hanh ly xach tay khi di chuyen bay quoc te hang pho thong",
+    "is_unaccented": true,
+    "expected_action": "OUT_OF_SCOPE",
+    "gold_doc_id": null,
+    "gold_clause": null,
+    "must_contain": []
+  },
+  {
+    "id": "CAL-36",
+    "query": "muc qua mung dam cuoi cho nhan su bang vang mieng hay tien mat trong cong ty la bao nhieu",
+    "is_unaccented": true,
+    "expected_action": "OUT_OF_SCOPE",
+    "gold_doc_id": null,
+    "gold_clause": null,
+    "must_contain": []
+  }
+]

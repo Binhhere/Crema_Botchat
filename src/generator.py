@@ -11,7 +11,12 @@ import httpx
 from google.genai import errors as genai_errors
 from google.genai import types
 
-from src.config import FALLBACK_FLASH_MODELS, GENERATION_MODEL
+from src.config import (
+    FALLBACK_FLASH_MODELS,
+    GENERATION_MODEL,
+    TAU_COSINE_FLOOR,
+    TAU_COSINE_REJECT,
+)
 from src.indexer import call_gemini_with_backoff, get_genai_client
 from src.models import (
     Chunk,
@@ -242,6 +247,8 @@ def ask_policy(
     client: Any | None = None,
     model: str = GENERATION_MODEL,
     use_rewriter: bool = True,
+    tau_reject: float | None = None,
+    tau_floor: float | None = None,
 ) -> PolicyAnswerResult:
     """Run Stage 1-3 pipeline: intent guardrail -> hybrid retrieval -> schema gen -> verifier."""
     t0 = time.perf_counter()
@@ -269,6 +276,8 @@ def ask_policy(
         history=history,
         client=client,
         use_rewriter=use_rewriter,
+        tau_reject=TAU_COSINE_REJECT if tau_reject is None else tau_reject,
+        tau_floor=TAU_COSINE_FLOOR if tau_floor is None else tau_floor,
     )
     total_api_calls = retrieval.api_calls
 
